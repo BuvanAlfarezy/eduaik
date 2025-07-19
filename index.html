@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tata Cara Sholat Lengkap</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <button id="toggleSidebar" class="toggle-button">☰</button>
+      <img src="images/111.png" alt="Logo" class="logo">
+      <div class="logo-text">
+        <h1 class="judul-app">Tata Cara Sholat</h1>
+        <p class="subjudul-app">Sesuai HPT Muhammadiyah</p>
+      </div>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Gerakan Sholat</h2>
+      <ul class="sidebar-menu">
+        <li class="menu-item" onclick="loadContent('takbiratul',event)">
+          <img src="images/takbir-Artguru.png" alt="Takbir">
+          <span>Takbiratul Ihram</span>
+        </li>
+        <li class="menu-item" onclick="loadContent('bersedekap',event)">
+          <img src="images/bersedekap-Artguru.png" alt="Sedekap">
+          <span>Bersedekap</span>
+        </li>
+        <li class="menu-item" onclick="loadContent('rukuk',event)">
+          <img src="images/ruku-Artguru.png" alt="Rukuk">
+          <span>Rukuk</span>
+        </li>
+        <li class="menu-item" onclick="loadContent('itidal', event)">
+          <img src="images/takbir-Artguru.png" alt="itidal">
+          <span>I'tidal & Tuma'ninah</span>
+        </li>
+        <li class="menu-item" onclick="loadContent('sujud', event)">
+          <img src="images/sujud.jpg" alt="sujud">
+          <span>Sujud</span>
+        </li>
+        <li class="menu-item" onclick="loadContent('dudukd', event)">
+          <img src="images/dudukd.png" alt="dudukd">
+          <span>Duduk diantara dua sujud</span>
+        </li>
+        <li class="menu-item" onclick="loadContent('tawal', event)">
+          <img src="images/ddd.png" alt="tawal">
+          <span>Tasyahud awal</span>
+        </li>
+        <li class="menu-item" onclick="loadContent('takhir',event)">
+          <img src="images/ddda.png" alt="takhir">
+          <span>Tasyahud akhir</span>
+        </li>
+        <li class="menu-item" onclick="loadContent('salam',event)">
+          <img src="images/s.png" alt="salam">
+          <span>Salam</span>
+        </li>
+        <!-- Tambah item lain -->
+      </ul>
+    </aside>
+
+    <!-- Konten Utama -->
+    <main class="content" id="main-content">
+      <div class="card">
+        <h1>🕌 Selamat Datang</h1>
+        <p>Pelajari gerakan sholat lengkap sesuai tuntunan HPT Muhammadiyah. Pilih gerakan di samping untuk mulai.</p>
+        <button class="btn-start" onclick="loadContent('takbiratul',event)">▶ Mulai Panduan</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function loadContent(name, event = null) {
+      fetch(`data/${name}.html`)
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("main-content").innerHTML = html;
+        })
+        .catch(() => {
+          document.getElementById("main-content").innerHTML = "<div class='card'><p>Konten tidak ditemukan.</p></div>";
+        });
+
+      if (event) {
+        document.querySelectorAll(".menu-item").forEach(item => item.classList.remove("active"));
+        event.currentTarget.classList.add("active");
+      }
+    }
+
+  </script>
+
+  <script>
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.querySelector('.sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+
+      // Opsional: Sembunyikan tombol saat sidebar terbuka
+      toggleBtn.innerText = sidebar.classList.contains('active') ? '✖' : '☰';
+    });
+
+    // Sembunyikan sidebar jika klik di luar sidebar
+    document.addEventListener('click', function (e) {
+      if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
+        sidebar.classList.remove('active');
+        toggleBtn.style.display = 'block';
+      }
+    });
+  </script>
+
+</body>
+
+</html>
